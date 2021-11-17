@@ -3,12 +3,11 @@ import PostMessage from "../models/postMessage.js"
 
 export const getPost = async (req, res) => {
      const { id } = req.params
-     console.log('request',req)
      try {
           const post = await PostMessage.findById(id)
           res.status(200).json(post)
      } catch (error) {
-          console.log('error',error)
+          console.log(error)
           res.status(404).json({message: error.message})
      }
 }
@@ -69,7 +68,6 @@ export const deletePost = async (req, res) => {
 export const likePost = async (req, res) => {
      const { id } = req.params
      if(!req.userId) return res.json( {message: 'Unauthenticated' })
-     console.log('like res', res)
      if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with that ${id}`)
      const post = await PostMessage.findById(id)
      const index = post.likes.findIndex((id) => id === String(req.userId))
@@ -78,6 +76,15 @@ export const likePost = async (req, res) => {
      } else {
           post.likes = post.likes.filter((id) => id !== String(req.userId))
      }
+     const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true })
+     res.json(updatedPost)
+}
+
+export const commentPost = async (req, res ) => {
+     const { id } = req.params
+     const { value } = req.body
+     const post = await PostMessage.findById(id)
+     post.comments.push(value)
      const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true })
      res.json(updatedPost)
 }
