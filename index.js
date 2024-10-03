@@ -11,7 +11,12 @@ dotenv.config()
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
-app.use(cors())
+const corsOptions = {
+    origin: ['http://localhost:3000', 'https://www.stanleyluong.com'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    credentials: true,  // if you need to send cookies or authentication tokens
+  };
+app.use(cors(corsOptions))
 
 app.use('/posts',postRoutes)
 app.use('/user', userRoutes)
@@ -20,7 +25,7 @@ app.get('/', (req, res) => {
     res.send('welcome to the Memories API')
 })
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5001
 
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
