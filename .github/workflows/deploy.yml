@@ -3,7 +3,7 @@ name: Deploy to Heroku
 on:
   push:
     branches:
-      - main
+      - main  # Trigger this action on the main branch
 
 jobs:
   deploy:
@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3  # Updated to v3
+      uses: actions/checkout@v3  # Ensure this is updated to v3
 
     - name: Set up Node.js
-      uses: actions/setup-node@v3  # Updated to v3
+      uses: actions/setup-node@v3  # Ensure this is updated to v3
       with:
         node-version: '20'  # Specify the Node.js version you are using
 
@@ -29,7 +29,7 @@ jobs:
 
     - name: Login to Heroku using API key
       env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}  # Heroku API Key from Secrets
       run: heroku auth:token
 
     - name: Set Heroku git remote
