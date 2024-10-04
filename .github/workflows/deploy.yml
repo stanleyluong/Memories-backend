@@ -33,7 +33,9 @@ jobs:
       run: heroku auth:token
 
     - name: Set Heroku git remote
-      run: heroku git:remote -a stanley-memories
+      run: |
+        heroku git:remote -a stanley-memories
+        git remote -v  # Verifies the heroku remote has been set
 
     - name: Deploy to Heroku
-      run: git push heroku main
+      run: git push heroku main --force  # Force push to overwrite Heroku code
