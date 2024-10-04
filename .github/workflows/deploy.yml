@@ -3,7 +3,7 @@ name: Deploy to Heroku
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
@@ -32,4 +32,4 @@ jobs:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
         git remote add heroku https://git.heroku.com/stanley-memories.git
-        git push heroku master
+        git push heroku main
