@@ -37,5 +37,10 @@ jobs:
         heroku git:remote -a stanley-memories
         git remote -v  # Verifies the heroku remote has been set
 
+    - name: Commit changes if any
+      run: |
+        git add .
+        git commit -m "Automated Heroku deployment" || echo "No changes to commit"
+    
     - name: Deploy to Heroku
       run: git push heroku master --force  # Force push to overwrite Heroku code
