@@ -11,12 +11,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3  # Ensure this is updated to v3
+      uses: actions/checkout@v3
 
     - name: Set up Node.js
-      uses: actions/setup-node@v3  # Ensure this is updated to v3
+      uses: actions/setup-node@v3
       with:
-        node-version: '20'  # Specify the Node.js version you are using
+        node-version: '20'  # Specify the Node.js version
 
     - name: Set environment variable for OpenSSL
       run: export NODE_OPTIONS=--openssl-legacy-provider
@@ -33,14 +33,17 @@ jobs:
       run: heroku auth:token
 
     - name: Set Heroku git remote
+      run: heroku git:remote -a stanley-memories
+
+    - name: Configure Git user
       run: |
-        git remote add heroku https://git.heroku.com/stanley-memories.git
-        git remote -v  # Verifies the Heroku remote has been set
+        git config --global user.email "xstanz@gmail.com"
+        git config --global user.name "Stanley Luong"
     
     - name: Commit changes if any
       run: |
         git add .
-        git commit -m "Automated Heroku deployment" || echo "No changes to commit"
-    
+        git commit -m "Automated deploy" || echo "No changes to commit"
+
     - name: Deploy to Heroku
       run: git push heroku master --force  # Force push to overwrite Heroku code
