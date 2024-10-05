@@ -1,0 +1,27 @@
+# Node modules directory
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+
+# Build output
+dist/
+build/
+
+# Dependency directories
+.DS_Store
+coverage/
+
+# Heroku
+/.heroku
+
+# Misc
+yarn.lock
+package-lock.json
+.idea/
+.vscode/
