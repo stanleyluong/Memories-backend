@@ -11,12 +11,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3  # Ensure this is updated to v3
 
     - name: Set up Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v3  # Ensure this is updated to v3
       with:
-        node-version: '20'  # Specify the Node.js version
+        node-version: '20'  # Specify the Node.js version you are using
 
     - name: Set environment variable for OpenSSL
       run: export NODE_OPTIONS=--openssl-legacy-provider
@@ -34,6 +34,8 @@ jobs:
 
     - name: Set Heroku git remote
       run: heroku git:remote -a stanley-memories
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
     - name: Configure Git user
       run: |
@@ -46,4 +48,6 @@ jobs:
         git commit -m "Automated deploy" || echo "No changes to commit"
 
     - name: Deploy to Heroku
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}  # Ensure Heroku API Key is set here as well
       run: git push heroku master --force  # Force push to overwrite Heroku code
