@@ -14,11 +14,12 @@ dotenv.config()
 app.use(bodyParser.json({ limit: "30mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 const corsOptions = {
-    origin: ['http://localhost:3000', 'https://www.stanleyluong.com'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    credentials: true,  // if you need to send cookies or authentication tokens
-  };
-app.use(cors(corsOptions))
+  origin: ['http://localhost:5000', 'https://www.stanleyluong.com'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 app.use('/posts',postRoutes)
 app.use('/user', userRoutes)
