@@ -1,0 +1,6 @@
+Flask>=2.0
+MongoEngine>=0.20
+Flask-CORS>=3.0
+serverless-wsgi>=1.7
+bcrypt>=3.2
+PyJWT>=2.0 
